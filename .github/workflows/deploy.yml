@@ -11,10 +11,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Lint HTML
-        uses: itsallaboutapps/htmlhint-action@v1.1.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          addresses: 'index.html'
+          node-version: '20'
+
+      - name: Lint HTML
+        run: |
+          npm install -g htmlhint
+          htmlhint index.html
 
   build-and-push:
     needs: lint
